@@ -1,11 +1,15 @@
 
+import Header from './Header.jsx'
 
 function Contact() {
 
     return (
-        <div className="contact">
+        <>
+            <Header />
+            <div className="contact">
 
-        </div>
+            </div>
+        </>
     )
 }
 

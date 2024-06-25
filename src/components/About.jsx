@@ -1,11 +1,15 @@
 
+import Header from './Header.jsx'
 
 function About() {
 
     return (
-        <div className="about">
-        
-        </div>
+        <>
+            <Header />
+            <div className="about">
+            
+            </div>
+        </>
     )
 }
 

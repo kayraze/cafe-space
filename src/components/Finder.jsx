@@ -1,13 +1,14 @@
-
+import Header from './Header.jsx'
 
 function Finder() {
 
     return (
-    
-        <div className="finder">
-
-        </div>
-
+        <>
+            <Header />
+            <div className="finder">
+                
+            </div>
+        </>
     )
 }
 
