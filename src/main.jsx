@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import './styles/general.css'
+import './styles/header.css'
 import './styles/home.css'
 import './styles/finder.css'
 import './styles/about.css'

@@ -1,4 +1,5 @@
 import Header from './Header.jsx'
+import Divider from '../assets/home-divider.png'
 
 function Home() {
 
@@ -7,6 +8,8 @@ function Home() {
                 <Header /> 
                 <div className="home">
                     <h1>HOME</h1>
+                    
+                    <img src={Divider} className="divider"/>
                 </div>
             </>
         )

@@ -7,10 +7,10 @@ function Header() {
         <header className="header">
             <h1>Cafe-Space</h1>
             <nav>
-                <Link to='/'>Home</Link>
-                <Link to='/finder'>Finder</Link>
-                <Link to='/about'>About</Link>
-                <Link to='/contact'>Contact</Link>
+                <Link to='/' className="nav-link">Home</Link>
+                <Link to='/finder' className="nav-link">Finder</Link>
+                <Link to='/about' className="nav-link">About</Link>
+                <Link to='/contact' className="nav-link">Contact</Link>
             </nav>
         </header>
     )

@@ -1,0 +1,25 @@
+
+.header {
+    z-index: 10;
+    position: fixed;
+    background-color: #FFFFE8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+}
+.header h1 {
+    margin-left: 50px;
+}
+.header nav  {
+    margin-right: 100px;
+}
+.header nav .nav-link {
+    margin-right: 60px;
+    text-decoration: none;
+    color: black;
+}
+.header nav .nav-link:hover {
+    
+}
