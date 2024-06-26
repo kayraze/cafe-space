@@ -3,6 +3,9 @@
 }
 
 .finder {
+    display: flex;
+    flex-direction: column;
+    position: relative;
     color: white;
     width: 100%;
     height: 100vh;
@@ -19,7 +22,7 @@
 }
 
 .finder .find-div {
-    height: 100px;
+    height: 10%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -57,11 +60,75 @@
     border: 2px solid orange;
 }
 
+.sidebar-div {
+    overflow-y: hidden;
+}
+.sidebar {
+    /* display: flex; */
+    /* flex-direction: column; */
+    justify-content: space-evenly;
+    width: 30%;
+    height: 100%;
+    max-width: 400px;
+    overflow-y: auto;
+    border-right: px solid white;
+}
+
+.sidebar-div .sort-div {
+    margin-left: 22px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.sidebar-div h3 {
+    margin-right: 20px;
+    font-weight: 400;
+}
+.sidebar-div span {
+    font-size: 20px;
+    color: #FE7F7F;
+}
+.cafe-card {
+    overflow: hidden;
+    width: 90%;
+    display: flex;
+    cursor: pointer;
+    transition: background-color 0s, color 0s;
+    padding: 20px;
+}
+.cafe-card:hover {
+    background-color: rgba(0,0,0,0.8);
+    background-color: white;
+    color: black;
+}
+.cafe-card div {
+    min-width: 50%;
+}
+.cafe-card h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.cafe-card p {
+    font-size: 12px;
+}
+.cafe-card img {
+    height: 100%;
+    margin-right: 10px;
+    height: 100px;
+}
+
+
+
+
 
 
 @media (max-width: 600px) {
     .area-div {
         display: none;
+    }
+    .sidebar {
+        width: 100%;
+        max-width: none;
     }
 }
 @media (max-width: 400px) {
@@ -69,3 +136,10 @@
         display: none;
     }
 }
+
+@media (max-width: 1000px) {
+    .cafe-card {
+        flex-wrap: wrap;
+    }
+}
+@

@@ -1,7 +1,7 @@
 import Header from './Header.jsx'
 import { useState } from 'react'
 import Background from '../assets/finder-background.jpg'
-
+import CafeCard from './CafeCard.jsx'
 
 function Finder() {
  
@@ -71,17 +71,22 @@ function Finder() {
                         />
                     </div>
                 </form>
+                <div className="sidebar-div">
+                    <div className="sort-div">
+                        <h3>Sort By</h3>
+                        <span>Nearest</span>
+                    </div>
+
+                    <div className="sidebar">
+                        <CafeCard />
+                        <CafeCard />
+                        <CafeCard />
+                        <CafeCard />
+                        <CafeCard />
+                    </div>
+                </div>
             </div>
 
-            <div className="sidebar">
-                <div className="sidebar-sort-div">
-                    <h3>Sort By</h3>
-                    <span>Nearest</span>
-                </div>
-                <div className="cafe-card">
-                    <img src={} />
-                </div>
-            </div>
         </>
     )
 }
