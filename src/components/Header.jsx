@@ -26,8 +26,8 @@ function Header() {
             <nav>
                 <Link to='/' className="nav-link">Home</Link>
                 <Link to='/finder' className="nav-link">Finder</Link>
-                <Link to='/about' className="nav-link">About</Link>
-                <Link to='/contact' className="nav-link">Contact</Link>
+                <a href="#about" className="nav-link">About</a>
+                <a href="#contact" className="nav-link">Contact</a>
             </nav>
             <img src={Menu} className="menu" onClick={() => handleMenuClick()} /> 
             <div className="sidebar">
@@ -44,11 +44,11 @@ function Header() {
                 </div>
         
                 <div className="sidebar-item" >
-                    <Link to='/about' className="nav-link">About</Link>
+                    <a href="#about" className="nav-link">About</a>
                 </div>
 
                 <div className="sidebar-item" >
-                    <Link to='/contact' className="nav-link">Contact</Link>   
+                    <a href="#contact" className="nav-link">Contact</a>
                 </div>
             </div>
         </header>

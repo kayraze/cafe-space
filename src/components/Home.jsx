@@ -17,11 +17,10 @@ function Home() {
         return(
             <>
                 <div className="home">
-                    <Header /> 
                     <img src={Background} className="background" />
                     <div className="content">
                         <h1>Cafe-Space</h1>
-                        <p><q>Discover Your Perfect Brew, <br/>One Shop at a Time.</q> with cafe space</p>
+                        <p><q>Discover Your Perfect Brew, <br/>Find the most convenient cafe for you.</q> <br/>with cafe space</p>
                     </div>
                     <div className="background-opacity" />
                     <img src={Divider} className="divider"/>
