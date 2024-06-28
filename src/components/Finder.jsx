@@ -1,10 +1,11 @@
 import Header from './Header.jsx'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Background from '../assets/finder-background.jpg'
 import CafeCard from './CafeCard.jsx'
 
 function Finder() {
  
+    const [places, setPlaces] = useState({})
     const [formData, setFormData] = useState(
         {
             name: "",
@@ -31,6 +32,66 @@ function Finder() {
             }
         )
     }
+    async function initMap() {
+        return new Promise((resolve, reject) => {
+            const myLatLng = { lat: 14.242776, lng: 121.164856 };
+            const map = new google.maps.Map(document.getElementsByClassName("cafe-map-div")[0], {
+                center: myLatLng,
+                zoom: 16,
+            });
+
+            const service = new google.maps.places.PlacesService(map);
+            resolve({ map, service });
+        });
+    }
+
+    async function markPlace(results, status, map) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            results.forEach(place => {
+                const marker = new google.maps.Marker({
+                    map: map,
+                    position: place.geometry.location,
+                });
+            });
+        }
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { map, service } = await initMap();
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(position => {
+                        const location = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        };
+
+                        const radius = 5000;
+
+                        const request = {
+                            location: location,
+                            radius: radius,
+                            type: ['cafe']
+                        };
+
+                        service.nearbySearch(request, (results, status) => {
+                            markPlace(results, status, map);
+                        });
+                    });
+                } else {
+                    console.log("Geolocation is not supported by this browser.");
+                }
+            } catch (error) {
+                console.error("Error initializing map:", error);
+            }
+        };
+
+        fetchData();
+
+    }, []);
+
     return (
         <>
             <div className="finder">
@@ -71,18 +132,23 @@ function Finder() {
                         />
                     </div>
                 </form>
-                <div className="sidebar-div">
-                    <div className="sort-div">
-                        <h3>Sort By</h3>
-                        <span>Nearest</span>
-                    </div>
+                <div className="finder-content">
+                    <div className="sidebar-div">
+                        <div className="sort-div">
+                            <h3>Sort By</h3>
+                            <span>Nearest</span>
+                        </div>
 
-                    <div className="sidebar">
-                        <CafeCard />
-                        <CafeCard />
-                        <CafeCard />
-                        <CafeCard />
-                        <CafeCard />
+                        <div className="sidebar">
+                            <CafeCard />
+                            <CafeCard />
+                            <CafeCard />
+                            <CafeCard />
+                            <CafeCard />
+                        </div>
+                    </div>
+                    <div className="cafe-map-div">
+                        
                     </div>
                 </div>
             </div>

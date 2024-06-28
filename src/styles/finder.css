@@ -60,14 +60,23 @@
     border: 2px solid orange;
 }
 
+
+.finder-content {
+    display: flex;
+    flex-direction: row;
+
+    
+}
+
 .sidebar-div {
     overflow-y: hidden;
+    width: 30%;
 }
 .sidebar {
     /* display: flex; */
     /* flex-direction: column; */
+    width: 100%;
     justify-content: space-evenly;
-    width: 30%;
     height: 100%;
     max-width: 400px;
     overflow-y: auto;
@@ -96,6 +105,9 @@
     transition: background-color 0s, color 0s;
     padding: 20px;
 }
+.cafe-card.active {
+    background-color: black;
+}
 .cafe-card:hover {
     background-color: rgba(0,0,0,0.8);
     background-color: white;
@@ -117,6 +129,14 @@
     height: 100px;
 }
 
+
+
+.cafe-map-div {
+
+    border: 1px solid white;
+    width: 50%;
+    height: 50%;
+}
 
 
 
@@ -142,4 +162,4 @@
         flex-wrap: wrap;
     }
 }
-@
+

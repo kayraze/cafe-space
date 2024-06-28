@@ -7,10 +7,11 @@
     min-width: 100%;
     position: relative;
     flex-direction: column;
+    overflow: hidden;
 }
 .contact .background {
     position: absolute;
-    z-index: -2;
+    z-index: -100;
     object-fit: cover;
     object-position: top;
     width: 100%;
@@ -18,15 +19,16 @@
 }
 
 .contact .divider {
+
     position: absolute;
-    height: 90%;
-    width: 100%;
+    height: 100%;
+    width: clamp(1000px, 100%, 100%);
     z-index: -1;
     bottom: 0;
 }
 
 .contact .content {
-    margin-top: 300px;
+    margin-top: 150px;
     width: 100%;
     height: 80%;
     display: flex;
@@ -37,13 +39,10 @@
 }
 
 .contact .content .contact-form {
+
+    width: clamp(100px, 80%, 600px);
     margin-right: 50px;
     padding: 50px;
-}
-.contact-form h1, .contact-details h1 {
-    color: white;
-    font-size: 70px;
-    font-weight: 600;
 }
 .contact-form label {
     font-size: 20px;
@@ -57,7 +56,7 @@
     border-radius: 8px;
     border: 2px solid black;
     margin-bottom: 20px;
-    width: 400px;
+    width: clamp(50px, 100%, 600px);
     font-weight: 600;
     letter-spacing: 0.4px;
 }
@@ -77,11 +76,23 @@
     border: 1px solid black;
     cursor: pointer;
     font-weight: 600;
+    transition: opacity 0s, background-color 0s;
+}
+.contact-form  #submit:hover {
+    background-color: orange;
+}
+.contact-form  #submit:active {
+    background-color: white;
+}
+.contact-form h1, .contact-details h1 {
+    color: white;
+    font-size: 70px;
+    font-weight: 600;
 }
 
-
 .contact-details {
-    margin-top: 20px;
+    margin: 50px 20px 50px 20px;
+    width: clamp(100px, 100%, 600px);
 }
 .contact-details h3 {
     color: white;
@@ -90,7 +101,7 @@
 }
 .contact-details #map-div {
     margin-top: 50px;
-    width: 600px;
+    width: 100%;
     height: 300px;
 }
 .contact-details #map-div img {
@@ -98,4 +109,26 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+}
+
+@media (max-width: 1000px) {
+    .contact-form h1 {
+        font-size: 60px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .contact-form h1 {
+        font-size: 40px;
+    }
+}
+@media (max-width: 800px) {
+    .contact-form h1 {
+        font-size: 50px;
+    }
+}
+@media (max-width: 600px) {
+    .contact-form h1 {
+        font-size: 40px;
+    }
 }

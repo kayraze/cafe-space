@@ -4,9 +4,7 @@
     z-index: -33;
     display: flex;
     flex-direction: column;
-    /* justify-content: flex-end; */
-    
-    height: 100vh;
+    min-height: 100vh;
 }
 .about .about-top-buffer {
     display: none;
@@ -28,14 +26,16 @@
 .about .divider {
     z-index: -1;
     position: absolute;
-    height: 100vh;
+    height: 100%;
     width: 80%;
+    bottom: 0;
 }
 
 .about .content {
     margin-left: 50px;
     padding-top: 100px;
     width: 40%;
+    margin-bottom: 100px;
 }
 .about  .title {
     font-size: 50px;
@@ -50,12 +50,13 @@
 
 .small-content {
     display: none;
+    flex: 4;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #F8FDD8;
-    flex: 3;
     padding: 40px 20px;
+    padding-bottom: 80px;
 }
 .about .small-content p {
     width: clamp(250px,90%, 700px);
@@ -67,16 +68,15 @@
     .about {
         display: flex;
         flex-direction: column;
-        justify-content: space-between
-        ;
+        /* justify-content: space-between; */
     }
     .about .about-top-buffer {
-        display: block;
+        display: none;
     }
     .about .background {
         position: relative;
-        height: 30%;
         display: inline-block;
+        height: 40vh;
     }
     .about .content, .about .divider {
         display: none;
@@ -130,7 +130,6 @@
     }
     .about .background {
         position: relative;
-        height: 30%;
         display: inline-block;
     }
     .about .content, .about .divider {
