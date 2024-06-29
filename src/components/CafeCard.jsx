@@ -2,18 +2,20 @@
 import CafeLogo from '../assets/coffee-shop-logo-1.jpg'
 
 
-function CafeCard(prop) {
-
+function CafeCard({onClick, logo, name, address}) {
+    // console.log({key, logo,  name, address})
     return (
-
-        <div className="cafe-card">
-            <img src={CafeLogo} />
+        <div className="cafe-card" onClick={onClick}>
+            <div className="img-div">
+                <img src={logo}  />
+            </div>
             <div>
-                <h4>{prop.name}</h4>
-                <p>{prop.address}</p>
+                <h4>{name}</h4>
+                <p>{address}</p>
             </div>
         </div>
     )
+
 
 }
 

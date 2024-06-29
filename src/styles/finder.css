@@ -9,10 +9,11 @@
     color: white;
     width: 100%;
     height: 100vh;
+    max-height: 100vh;
 }
 
 .finder .background {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     object-position: center;
@@ -20,15 +21,21 @@
 
     z-index: -2;
 }
-
+.finder .opacity {
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+}
 .finder .find-div {
     height: 10%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0px 20px;
-    background-color: rgba(0, 0, 0, 0.4);
+    padding: 10px 20px;
+    /* background-color: rgba(0, 0, 0, 0.4); */
 }
 .input-div {
     display: flex;
@@ -68,21 +75,31 @@
     
 }
 
+
+
+.sort-div {
+    position: sticky;
+    top: 0; /* Stick sorting div to the top */
+
+    z-index: 1; /* Ensure sorting div stays above sidebar content */
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Optional: add a border to separate from content */
+}
 .sidebar-div {
-    overflow-y: hidden;
-    width: 30%;
+    display: flex;
+    flex-direction: column;
+    max-height  : 80vh; /* Ensure sidebar takes full height */
+    overflow: hidden; /* Hide overflow to avoid unnecessary scrollbars */
+    width: clamp(270px, 30%, 500px);
+
 }
 .sidebar {
-    /* display: flex; */
-    /* flex-direction: column; */
-    width: 100%;
-    justify-content: space-evenly;
-    height: 100%;
-    max-width: 400px;
-    overflow-y: auto;
-    border-right: px solid white;
+    flex: 1; /* Allow sidebar content to take remaining height */
+    overflow-x: hidden;
+    overflow-y: auto; /* Enable vertical scrolling for sidebar content */
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
 }
-
 .sidebar-div .sort-div {
     margin-left: 22px;
     display: flex;
@@ -123,19 +140,34 @@
 .cafe-card p {
     font-size: 12px;
 }
+.cafe-card .img-div {
+    display: flex;
+    justify-content: center;
+}
 .cafe-card img {
+    object-position: center;
+    object-fit: cover;
     height: 100%;
     margin-right: 10px;
+    width: 100%;
     height: 100px;
 }
 
 
-
+.cafe-details {
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 70vh;
+}
 .cafe-map-div {
-
     border: 1px solid white;
-    width: 50%;
-    height: 50%;
+    width: 80%;
+    display: inline-block;
+    min-height: 500px;
 }
 
 
