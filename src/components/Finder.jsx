@@ -7,10 +7,10 @@ import CafeCard from './CafeCard.jsx'
 function Finder() {
 
     let map;
-    const googleLib = ['places']
-    let placesBuffer = []
+    let service;
     const [places, setPlaces] = useState([])
-    let [center, setCenter] = useState({ lat: 0, lng: 0})
+    const [center, setCenter] = useState({ lat: 14.241246, lng: 121.149716})
+    // const [center, setCenter] = useState(getCurrentPosition())
     const [formData, setFormData] = useState(
         {
             name: "",
@@ -18,6 +18,25 @@ function Finder() {
             message: ""
         }
     );
+    const coords = { lat: 14.241246, lng: 121.149716}
+    useEffect(() => {
+      const run = async () => {
+        const map = new google.maps.Map(
+          document.getElementsByClassName("cafe-map-div")[0],
+          {
+            center: coords,
+            zoom: 14
+          }
+        )
+        renderSidebar()
+
+      }
+      run()
+  
+  
+  
+    }, [])
+
     const [selectedPlace, setSelectedPlace] = useState(places[0] ? places[0] : {
         name: "None"
     });
@@ -39,7 +58,7 @@ function Finder() {
             }
         )
     }
-    function markPlace(map, position, title) {
+    function markPlace(position, title) {
         const markerPosition = new google.maps.LatLng(position.lat, position.lng)
         new google.maps.Marker({
             position: position,
@@ -47,93 +66,82 @@ function Finder() {
             title: title
         })
     }
-
-    function initMap() {   
-        return new Promise((resolve, reject) => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(position =>{
-                    const coords = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    setCenter(coords)
-                    map = new google.maps.Map(
-                        document.getElementsByClassName("cafe-map-div")[0],
-                        { 
-                            center: center,
-                            zoom: 16
-                        }
-                    )
-                    const service = new google.maps.places.PlacesService(map)
-                    resolve({map, service, coords})
-                })           
-            } else {
-                console.log("navigator.geolocation is not available")
-            }
-        })
-    }
-    function handleCardClick(place) {
-        console.log(place.latLng);
-        if (map) {
-            
-            map.setCenter(new google.maps.LatLng(place.latLng.lat, place.latLng.lng))
+    function getCurrentPosition() {
+        let coords = { lat: 0, lng: 0 };
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                coords = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+            })
         } else {
+            console.log("[-] getPosition Failed")
+        }
+        return coords
+    }
+    function renderMap(position) {   
+    
+        return new Promise((resolve, reject) => {
+            console.log("MAP")
             map = new google.maps.Map(
                 document.getElementsByClassName("cafe-map-div")[0],
                 { 
-                    center: place.latLng,
+                    center: position,
                     zoom: 16
                 }
             )
-            
-        }
-        markPlace(map, place.latLng, place.name)
-        setSelectedPlace(places[place.id]);
+            service = new google.maps.places.PlacesService(map)
+            resolve({ map, service })
+            console.log("MAP FINISHED")
+        })
     }
-    useEffect(() => {
-        const runMap = async () => {
-            const { map, service, coords } = await initMap()
+
+
+    async function renderSidebar() {
+        const { map, service } = await renderMap(center)
+        const request = {
+            location: center, // assuming center is defined elsewhere
+            radius: 5000,
+            type: ['cafe']
+        };
         
-            const request = {
-                location: map.center,
-                radius: 5000,
-                type: ['cafe']
+        const callback = (results, status) => {
+            try {
+                    console.log("CALLBACK")
+
+                    const placesBuffer = results.map((place, index) => ({
+                        id: index,
+                        rating: place.rating,
+                        logo: place.photos && place.photos.length > 0 ? place.photos[0].getUrl() : place.icon,
+                        name: place.name,
+                        address: place.vicinity,
+                        latLng: { 
+                            lat: place.geometry.location.lat(), 
+                            lng: place.geometry.location.lng() 
+                        }
+                    }));
+                    
+                    placesBuffer.forEach(place => {
+                        markPlace(place.latLng, place.name);
+                    });
+                    
+                    setPlaces(placesBuffer);
+                    setSelectedPlace(placesBuffer[0])
+            } catch (error) {
+                console.log(error)
             }
+        };
+        
+        service.nearbySearch(request, callback);
+        
+    }
 
-            const callback = (results, status) => {
-                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    let count = 0;
-                    // console.log(results[0])
-                    results.forEach(place => {
-                        console.log(place.geometry.location.lat()
-                        )
-                        placesBuffer.push({
-                            id: count,
-                            rating: place.rating,
-                            logo: place.photos && place.photos.length > 0 ? place.photos[0].getUrl() : place.icon,
-                            name: place.name,
-                            address: place.vicinity,
-                            latLng: { 
-                                lat: place.geometry.location.lat(), 
-                                lng: place.geometry.location.lng() 
-                            },
-                        })
-                        markPlace(map, placesBuffer[count].latLng, placesBuffer[count].name)
-                        count++;
-
-                    })
-                    setPlaces(placesBuffer)
-                    placesBuffer = []
-                }
-            }
-
-            service.nearbySearch(request, callback);
-        }
-        runMap()
-        console.log("RUNBNB")
-    }, [])  
-
-    
+    function handleCardClick(place) {
+        setSelectedPlace(place)
+        renderMap(place.latLng)
+        markPlace(place.latLng, place.name)
+    }
     return (
         <>
             <div className="finder">
@@ -189,18 +197,16 @@ function Finder() {
                         </div>
                     </div>
                     <div className="cafe-details">
-                        <h1>{selectedPlace.name}</h1>
+                        <div className="heading">
+                            <img className="logo" src={selectedPlace.logo} />
+                            <h1>{selectedPlace.name}</h1>
+                        </div>
+
                         <div className="cafe-information">
                             <p>Address: {selectedPlace.address}</p>
                             <p>Rating: {selectedPlace.rating}</p>
                         </div>
-
-                        <div className="cafe-map-div">
-    
-
-
-                                
-                        </div>
+                        <div className="cafe-map-div"></div>
                         
                         <div>
                             <h3>About Us</h3>
